@@ -37,11 +37,4 @@ public class HomePage {
         Assert.assertTrue(element.isDisplayed(), "Element is not displayed");
     }
 
-
-    //        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        WebElement homeIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a[aria-label='Home']")));
-//
-//        WebElement createReviewButton = driver.findElement(By.xpath("//button[text()='Create Review']"));
-//        createReviewButton.click();
-
 }
