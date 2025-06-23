@@ -3,15 +3,22 @@ package test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import java.time.Duration;
+import java.util.regex.Pattern;
 
 public class LogInPage {
 
     WebDriver driver;
+    WebDriverWait wait;
 
     public LogInPage(WebDriver driver) {
 
         this.driver = driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     By signInMessageSelector = By.className("auth-form__heading");
@@ -29,9 +36,12 @@ public class LogInPage {
     }
 
     public void inputUserName(String userName) {
-        WebElement userNameInput = driver.findElement(userNameInputSelector);
-        checkVisibilityOfElement(userNameInput);
-        userNameInput.sendKeys(userName);
+        if(validateEmailAddress(userName)) {
+            WebElement userEmailInputField = wait.until(ExpectedConditions.elementToBeClickable(userNameInputSelector));
+            userEmailInputField.sendKeys(userName);
+        }
+        else
+            throw new RuntimeException("Invalid email address");
     }
     public void inputPassword(String password) {
         WebElement passwordInput = driver.findElement(passwordInputSelector);
@@ -45,5 +55,10 @@ public class LogInPage {
     }
     public void checkVisibilityOfElement(WebElement element) {
         Assert.assertTrue(element.isDisplayed(), "Element is not displayed");
+    }
+
+    public boolean validateEmailAddress(String email) {
+        String emailRegex =  "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        return Pattern.matches(emailRegex, email);
     }
 }
