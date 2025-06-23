@@ -20,17 +20,10 @@ public class HomePage {
     }
 
     By homeIconLocater = By.cssSelector("a[aria-label='Home']");
-    By createReviewButtonLocater = By.xpath("//button[text()='Create Review']");
 
     public void checkVisibilityOfHomeIcon() {
         WebElement homeIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(homeIconLocater));
         checkVisibilityOfElement(homeIcon);
-    }
-
-    public void clickOnCreateReviewButton() {
-        WebElement createReviewButton = driver.findElement(createReviewButtonLocater);
-        checkVisibilityOfElement(createReviewButton);
-        createReviewButton.click();
     }
 
     public void checkVisibilityOfElement(WebElement element) {
